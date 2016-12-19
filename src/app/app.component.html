@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+<app-nav [brandName]="title"></app-nav>
+<div class="container">
+  <router-outlet></router-outlet>
+  <div class="row" style="margin-top: 70px">
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container" style="padding-top: 15px">
+        <footer>
+          <p class="pull-right"><a href="#">联系我们</a> | <a href="#">客服中心</a></p>
+          <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!--<div id="app">-->
+  <!--<h1>Hello {{name}}</h1>-->
+  <!--<ul class="nav nav-pills">-->
+    <!--<li routerLinkActive="active"><a routerLink="/test1">Test1</a></li>-->
+    <!--<li routerLinkActive="active"><a routerLink="/test2" routerLinkActive="active">Test2</a></li>-->
+  <!--</ul>-->
+  <!--<div id="sxp1" #b class="test" [ngClass]="title">test</div>-->
+  <!--<div *ngFor="let t of test()" id="{{t}}" #a (click)="onClick(a.outerHTML)">{{t}}</div>-->
+  <!--<router-outlet></router-outlet>-->
+
+<!--</div>-->

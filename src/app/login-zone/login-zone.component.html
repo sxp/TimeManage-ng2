@@ -1,0 +1,56 @@
+<div style="margin-top: 20px">
+  <ul class="nav nav-tabs">
+    <li style="text-align: center" class="col-sm-6 col-xs-6" [class.active]="loginActive"><a routerLink="/" (click)="activeLogin()">登录</a></li>
+    <li style="text-align: center" class="col-sm-6 col-xs-6" [class.active]="regActive"><a routerLink="/" (click)="activeRegister()">注册</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade" [ngClass]="{'in': loginActive, 'active': loginActive}">
+      <div class="row" style="margin-left: 5px;margin-right: 5px">
+        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px"
+              action="/example/hdom/hdom_submitpage.html" onsubmit="return verifyForm()">
+          <div class="form-group input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            <input id="loginAccount" type="email" class="form-control" placeholder="邮箱账号或手机号" required autofocus>
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+            <input id="loginPassword" type="password" class="form-control" placeholder="密码" required>
+          </div>
+          <div class="form-group checkbox" style="margin-bottom: 15px">
+            <label>
+              <input type="checkbox" name="remember">下次自动登录
+            </label>
+          </div>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">登录</button>
+        </form>
+        <div class="pull-left" style="margin-top: 20px">
+          其他账号登录: <a href="{{qqAuthUrl | async}}"><img
+          src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_24X24.png"/></a>
+        </div>
+        <div class="pull-right" style="padding: 80px 5px 20px 0px">
+          <span><a class="btn btn-link" href="#">忘记密码？</a>|</span>
+          <span><a href="#">意见反馈</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" [ngClass]="{'in': regActive, 'active': regActive}">
+      <div class="row" style="margin-left: 5px;margin-right: 5px">
+        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px"
+              action="/example/hdom/hdom_submitpage.html" onsubmit="return verifyForm()">
+          <div class="form-group input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            <input id="registerAccount" type="text" class="form-control" placeholder="请输入邮箱账号">
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+            <input id="registerPassword" type="password" class="form-control" placeholder="请输入密码">
+          </div>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">立即注册</button>
+        </form>
+        <div class="pull-right" style="padding: 80px 5px 20px 0px">
+          <span><a href="#">意见反馈</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
