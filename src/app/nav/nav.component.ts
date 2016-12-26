@@ -1,5 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {SessionService} from "../session.service";
+import {Account} from "../account";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-nav',
@@ -7,24 +9,25 @@ import {SessionService} from "../session.service";
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  logined = false;
+  account: Account;
   @Input() brandName: string;
 
-  constructor(private session: SessionService) {
-    session.logined$.subscribe(v => {
-      this.logined = v.valueOf();
-    });
+  constructor(private session: SessionService, private auth: AuthService) {
   }
 
   ngOnInit() {
+    this.session.accountInfo$.subscribe(v => {
+      this.account = v;
+    });
   }
 
   brandClick() {
-    if (this.logined) {
-      this.session.logout();
-    } else {
-      this.session.login();
-    }
+    this.session.refreshAccountInfo();
   }
 
+  logout() {
+    this.auth.logout().subscribe(v => {
+      this.session.refreshAccountInfo();
+    });
+  }
 }

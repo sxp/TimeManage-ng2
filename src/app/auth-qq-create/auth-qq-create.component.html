@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">新建用户(首次使用此QQ登录)</div>
+      <div class="panel-body">
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <label for="nick" class="col-md-4 control-label">昵称</label>
+
+            <div class="col-md-6">
+              <img [src]="account?.avatarUrl" *ngIf="account?.avatarUrl"/>
+              <input id="nick" type="text" class="form-control" name="nick" [(ngModel)]="data.nick"
+                     required autofocus #nick="ngModel" minlength="3" maxlength="12">
+
+              <div class="alert alert-danger" [hidden]="nick.valid || nick.pristine">昵称必须>=3个字符</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-8 col-md-offset-4">
+              <button type="submit" class="btn btn-default" [disabled]="!form.form.valid">
+                创建用户
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

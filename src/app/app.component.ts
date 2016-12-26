@@ -9,8 +9,8 @@ import {AuthService} from "./auth.service";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SessionService, AuthService]
+  providers: []
 })
 export class AppComponent {
-  title = 'Time';
+  title = '时间管理';
 }
