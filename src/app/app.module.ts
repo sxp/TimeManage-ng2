@@ -14,6 +14,12 @@ import {AuthQqCreateComponent} from './auth-qq-create/auth-qq-create.component';
 import {HomeComponent} from './home/home.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ActionService} from "./action.service";
+import { ActionManagerComponent } from './action-manager/action-manager.component';
+import { ActionCategoryEditorComponent } from './action-category-editor/action-category-editor.component';
+import { ActionEditorComponent } from './action-editor/action-editor.component';
+import {DropdownModule} from "ng2-bootstrap/dropdown";
+import {ModalModule} from "ng2-bootstrap/modal";
+import {AlertModule} from "ng2-bootstrap/alert";
 
 @NgModule({
   declarations: [
@@ -23,9 +29,15 @@ import {ActionService} from "./action.service";
     WelcomeComponent,
     AuthQqCreateComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    ActionManagerComponent,
+    ActionCategoryEditorComponent,
+    ActionEditorComponent
   ],
   imports: [
+    DropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
     BrowserModule,
     FormsModule,
     JsonpModule,

@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row vertical-align">
+      <div class="col-xs-6" *ngIf="!showRenameForm">
+        <span class="glyphicon glyphicon-folder-open" style="padding-right: 0.3em" aria-hidden="true"></span> <b>{{data.name}}</b>
+      </div>
+      <div class="col-xs-12" *ngIf="showRenameForm">
+        <div class="input-group" [class.has-error]="!name.valid">
+          <div class="input-group-addon">
+            <span class="glyphicon glyphicon-folder-open" style="padding-right: 0.3em" aria-hidden="true"></span>
+          </div>
+          <input type="text" class="form-control" name="name" [(ngModel)]="_name" #name="ngModel" required maxlength="14" placeholder="分类名，必填"><br>
+          <div class="input-group-btn">
+            <button class="btn btn-primary" (click)="save()" [class.hidden]="!name.valid || !nameChanged">保存</button>
+            <button class="btn btn-default" (click)="cancel();">取消</button>
+          </div>
+        </div>
+        <alert [type]="a.type" dismissible="true" *ngFor="let a of alerts">{{a.msg}}</alert>
+      </div>
+      <div class="col-xs-6 btn-group" *ngIf="!showRenameForm" dropdown>
+        <button class="btn btn-default pull-right" dropdownToggle>
+          <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu-right" dropdownMenu>
+          <li><a href>新建动作</a></li>
+          <li><a href (click)="$event.preventDefault(); toggleRename();">重命名</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href (click)="$event.preventDefault(); remove();">删除</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item action-editor" *ngFor="let a of data.children" [data]="a"></li>
+  </ul>
+</div>
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="smModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Small modal</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -16,15 +16,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.actionList = this.as.list().publish();
+    this.actionList = this.as.listAction().publish();
     this.actionList.subscribe(l => {
       this.current = l[0].name;
     });
     this.actionList.connect();
-    // this.as.list().subscribe(resp => {
-    //   console.log(resp);
-    //   this.actionList
-    // })
   }
 
   changeCurrent(name: string) {
