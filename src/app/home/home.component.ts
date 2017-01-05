@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../session.service";
-import {Account} from "../account";
+import {Account} from "../po";
 
 @Component({
   templateUrl: './home.component.html',

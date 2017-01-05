@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, ConnectableObservable} from "rxjs";
 import {ActionService} from "../action.service";
-import {Action} from "../action";
+import {Action} from "../po";
 
 @Component({
   selector: 'dashboard-page',

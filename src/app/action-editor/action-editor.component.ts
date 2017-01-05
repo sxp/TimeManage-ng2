@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {Action, ActionCategory} from "../action";
+import {Action, ActionCategory} from "../po";
 import {ActionService} from "../action.service";
 
 @Component({

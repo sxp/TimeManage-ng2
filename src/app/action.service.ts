@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Action, ActionCategory} from "./action";
+import {Action, ActionCategory} from "./po";
 
 @Injectable()
 export class ActionService {

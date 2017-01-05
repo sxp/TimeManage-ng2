@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Jsonp, RequestOptions, Headers, Http} from '@angular/http';
 import {Observable} from "rxjs/Observable";
-import {Account} from "./account";
+import {Account} from "./po";
 
 @Injectable()
 export class AuthService {

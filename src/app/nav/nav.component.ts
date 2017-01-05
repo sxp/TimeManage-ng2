@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {SessionService} from "../session.service";
-import {Account} from "../account";
+import {Account} from "../po";
 import {AuthService} from "../auth.service";
 
 @Component({

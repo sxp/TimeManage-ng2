@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {Http} from "@angular/http";
-import {Account} from "./account";
+import {Account} from "./po";
 
 @Injectable()
 export class SessionService {

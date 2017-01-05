@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActionService} from "../action.service";
 import {Observable} from "rxjs";
-import {ActionCategory} from "../action";
+import {ActionCategory} from "../po";
 import {ModalDirective} from "ng2-bootstrap";
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {ActionCategory} from "../action";
+import {ActionCategory} from "../po";
 import {ActionService} from "../action.service";
 import {ModalDirective} from "ng2-bootstrap";
 
