@@ -22,8 +22,8 @@ export class AuthService {
       });
   }
 
-  createNewQqUser(nick: string) {
-    return this.http.post(this.createNewQqUserUrl, {name: nick})
+  createNewQqUser(name: string) {
+    return this.http.post(this.createNewQqUserUrl, {name})
       .map(resp => resp.json())
       .catch(err => {
         console.log(err);

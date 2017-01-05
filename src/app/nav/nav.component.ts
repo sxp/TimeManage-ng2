@@ -19,9 +19,6 @@ export class NavComponent implements OnInit {
     this.session.accountInfo$.subscribe(v => {
       this.account = v;
     });
-  }
-
-  brandClick() {
     this.session.refreshAccountInfo();
   }
 

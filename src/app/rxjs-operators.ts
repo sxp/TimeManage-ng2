@@ -18,4 +18,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/publish';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
 

@@ -5,14 +5,16 @@
         <span class="glyphicon glyphicon-folder-open" style="padding-right: 0.3em" aria-hidden="true"></span> <b>{{data.name}}</b>
       </div>
       <div class="col-xs-12" *ngIf="showRenameForm">
-        <div class="input-group" [class.has-error]="!name.valid">
+        <div class="input-group" [class.has-error]="!name.valid && !name.disabled">
           <div class="input-group-addon">
             <span class="glyphicon glyphicon-folder-open" style="padding-right: 0.3em" aria-hidden="true"></span>
           </div>
-          <input type="text" class="form-control" name="name" [(ngModel)]="_name" #name="ngModel" required maxlength="14" placeholder="分类名，必填"><br>
+          <input type="text" class="form-control" name="name" [(ngModel)]="_name" #name="ngModel" required
+                 maxlength="14" placeholder="分类名，必填" [disabled]="waiting" (keyup.enter)="name.valid && nameChanged && save()"><br>
           <div class="input-group-btn">
-            <button class="btn btn-primary" (click)="save()" [class.hidden]="!name.valid || !nameChanged">保存</button>
-            <button class="btn btn-default" (click)="cancel();">取消</button>
+            <button class="btn btn-primary" *ngIf="!waiting" (click)="save()" [class.hidden]="!name.valid || !nameChanged">保存</button>
+            <button class="btn btn-default" *ngIf="!waiting" (click)="cancel();">取消</button>
+            <button class="btn btn-default" *ngIf="waiting" disabled><span class="glyphicon glyphicon-repeat rotate-forever"></span></button>
           </div>
         </div>
         <alert [type]="a.type" dismissible="true" *ngFor="let a of alerts">{{a.msg}}</alert>
@@ -22,7 +24,7 @@
           <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
         </button>
         <ul class="dropdown-menu-right" dropdownMenu>
-          <li><a href>新建动作</a></li>
+          <li><a href (click)="$event.preventDefault(); showAddAction();">新建动作</a></li>
           <li><a href (click)="$event.preventDefault(); toggleRename();">重命名</a></li>
           <li role="separator" class="divider"></li>
           <li><a href (click)="$event.preventDefault(); remove();">删除</a></li>
@@ -34,18 +36,27 @@
     <li class="list-group-item action-editor" *ngFor="let a of data.children" [data]="a"></li>
   </ul>
 </div>
-<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+<div bsModal #addActionConfirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true" (onShown)="nameInput.focus()" (onHidden)="name.reset()">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" (click)="smModal.hide()">
+        <button type="button" class="close" aria-label="Close" (click)="hideAddAction()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Small modal</h4>
+        <h4 class="modal-title">在 <b>{{data.name}}</b> 下新建动作</h4>
       </div>
       <div class="modal-body">
-        ...
+        <div class="input-group" [class.has-error]="!name.valid && !name.pristine && !name.disabled">
+          <input type="text" class="form-control" name="name" [(ngModel)]="addActionName" #name="ngModel" required
+                 maxlength="14" placeholder="动作名，必填" #nameInput [disabled]="waiting" (keyup.enter)="name.valid && addAction()"><br>
+          <div class="input-group-btn">
+            <button class="btn btn-primary" *ngIf="!waiting" (click)="addAction()" [class.hidden]="!name.valid">建立</button>
+            <button class="btn btn-default" *ngIf="!waiting" (click)="hideAddAction();">取消</button>
+            <button class="btn btn-default" *ngIf="waiting" disabled><span class="glyphicon glyphicon-repeat rotate-forever"></span></button>
+          </div>
+        </div>
+        <alert [type]="a.type" dismissible="true" *ngFor="let a of alerts">{{a.msg}}</alert>
       </div>
     </div>
   </div>

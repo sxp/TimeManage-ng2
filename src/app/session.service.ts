@@ -6,7 +6,7 @@ import {Account} from "./account";
 
 @Injectable()
 export class SessionService {
-  private accountInfoUrl = 'http://test.miguo.in:8000/json/accountInfo';
+  private accountInfoUrl = '/json/accountInfo';
 
   constructor(private http: Http) {
   }

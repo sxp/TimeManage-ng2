@@ -1,6 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActionCategory} from "../action";
 import {ActionService} from "../action.service";
+import {ModalDirective} from "ng2-bootstrap";
 
 @Component({
   selector: 'action-category-editor',
@@ -12,6 +13,9 @@ export class ActionCategoryEditorComponent implements OnInit {
   private showRenameForm = false;
   private _name: string;
   private alerts = [];
+  private waiting = false;
+  private addActionName: string;
+  @ViewChild('addActionConfirm') private addActionDialog: ModalDirective;
 
   constructor(private as: ActionService) {
   }
@@ -29,10 +33,13 @@ export class ActionCategoryEditorComponent implements OnInit {
   }
 
   save() {
+    this.waiting = true;
     this.clearAlarts();
     this.as.saveCategory(this.data.id, this._name).subscribe(v => {
       this.cancel();
+      this.waiting = false;
     }, err => {
+      this.waiting = false;
       this.alerts.push({
         type: 'danger',
         msg: err
@@ -54,6 +61,28 @@ export class ActionCategoryEditorComponent implements OnInit {
     this.alerts = [];
   }
 
+  showAddAction() {
+    this.addActionName = '';
+    this.addActionDialog.show();
+  }
+
+  hideAddAction() {
+    this.clearAlarts();
+    this.addActionDialog.hide();
+  }
+
   addAction() {
+    this.waiting = true;
+    this.clearAlarts();
+    this.as.addAction(this.data.id, this.addActionName).subscribe(v => {
+      this.hideAddAction();
+      this.waiting = false;
+    }, err => {
+      this.waiting = false;
+      this.alerts.push({
+        type: 'danger',
+        msg: err
+      });
+    });
   }
 }

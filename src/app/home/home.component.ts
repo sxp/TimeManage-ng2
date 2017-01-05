@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
       this.loaded = true;
       this.account = v;
     });
-    this.session.refreshAccountInfo();
   }
 
 }

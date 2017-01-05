@@ -27,4 +27,9 @@ export class DashboardComponent implements OnInit {
     this.current = name;
   }
 
+  refresh() {
+    this.actionList = this.as.listAction().publish();
+    this.actionList.connect();
+  }
+
 }

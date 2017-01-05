@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-default">
-      <div class="panel-heading">记录</div>
+      <div class="panel-heading">记录
+        <div class="pull-right glyphicon glyphicon-refresh" style="cursor: pointer" (click)="refresh()"><span class=""></span></div>
+      </div>
 
       <div class="panel-body text-center">
         <h2>
@@ -13,7 +15,9 @@
           10小时10分20秒
         </h4>
         <hr/>
-        <button class="btn btn-default btn-sm" [class.btn-primary]="current == a.name" *ngFor="let a of actionList | async" (click)="changeCurrent(a.name)">{{a.name}}</button>
+        <button class="btn btn-default btn-sm" [class.btn-primary]="current == a.name"
+                *ngFor="let a of actionList | async" (click)="changeCurrent(a.name)">{{a.name}}
+        </button>
       </div>
     </div>
   </div>

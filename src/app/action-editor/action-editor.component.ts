@@ -13,6 +13,7 @@ export class ActionEditorComponent implements OnInit {
   private _name: string;
   private changeOld = false;
   private alerts = [];
+  private waiting = false;
 
   constructor(private as: ActionService) {
   }
@@ -23,13 +24,17 @@ export class ActionEditorComponent implements OnInit {
 
   toggleRename() {
     this.showRenameForm = !this.showRenameForm;
+    this.clearAlarts();
   }
 
   save() {
+    this.waiting = true;
     this.clearAlarts();
     this.as.saveAction(this.data.id, this._name, this.changeOld).subscribe(v => {
+      this.waiting = false;
       this.cancel();
     }, err => {
+      this.waiting = false;
       this.alerts.push({
         type: 'danger',
         msg: err
@@ -44,10 +49,23 @@ export class ActionEditorComponent implements OnInit {
   cancel() {
     this.toggleRename();
     this._name = this.data.name;
-    this.clearAlarts();
   }
 
   clearAlarts() {
     this.alerts = [];
+  }
+
+  deleteAction() {
+    this.waiting = true;
+    this.clearAlarts();
+    this.as.deleteAction(this.data.id).subscribe(v => {
+      this.waiting = false;
+    }, err => {
+      this.waiting = false;
+      this.alerts.push({
+        type: 'danger',
+        msg: err
+      });
+    });
   }
 }

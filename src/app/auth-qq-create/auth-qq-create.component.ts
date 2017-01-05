@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {Account} from "../account";
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: './auth-qq-create.component.html',
@@ -10,7 +11,7 @@ export class AuthQqCreateComponent implements OnInit {
   data = {nick: ''};
   account: Account;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private route: Router) {
   }
 
   ngOnInit() {
@@ -27,7 +28,11 @@ export class AuthQqCreateComponent implements OnInit {
   onSubmit() {
     console.log(this.trace);
     this.auth.createNewQqUser(this.data.nick).subscribe(resp => {
-      console.log(resp);
+      if (resp.res === 'ok') {
+        this.route.navigate(['/']);
+      } else {
+        console.log(resp);
+      }
     });
   }
 
