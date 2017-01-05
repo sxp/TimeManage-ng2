@@ -140,8 +140,9 @@ export class LocalActionService {
   deleteCategory(id: number) {
     let idx = this.data.findIndex(v => v.id === id);
     if (idx !== -1) {
-      this.data.splice(idx, 1);
-      return Observable.of(true).delay(3000);
+      return Observable.of(true).delay(2000).do(v => {
+        this.data.splice(idx, 1);
+      });
     } else {
       return Observable.throw(`Can't find category: ${id}`);
     }

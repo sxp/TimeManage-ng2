@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Action, ActionCategory} from "../action";
 import {ActionService} from "../action.service";
 
@@ -7,8 +7,9 @@ import {ActionService} from "../action.service";
   templateUrl: './action-editor.component.html',
   styleUrls: ['./action-editor.component.css']
 })
-export class ActionEditorComponent implements OnInit {
+export class ActionEditorComponent implements OnInit, OnChanges {
   @Input() private data: Action;
+  @Input() private parentBusy: boolean;
   private showRenameForm = false;
   private _name: string;
   private changeOld = false;
@@ -16,6 +17,16 @@ export class ActionEditorComponent implements OnInit {
   private waiting = false;
 
   constructor(private as: ActionService) {
+  }
+
+  test() {
+    console.log('work');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['parentBusy']) {
+      this.waiting = changes['parentBusy'].currentValue;
+    }
   }
 
   ngOnInit() {

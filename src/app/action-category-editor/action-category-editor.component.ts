@@ -25,7 +25,17 @@ export class ActionCategoryEditorComponent implements OnInit {
   }
 
   remove() {
-    this.as.deleteCategory(this.data.id);
+    this.waiting = true;
+    this.clearAlarts();
+    this.as.deleteCategory(this.data.id).subscribe(v => {
+      this.waiting = false;
+    }, err => {
+      this.waiting = false;
+      this.alerts.push({
+        type: 'danger',
+        msg: err
+      });
+    });
   }
 
   toggleRename() {

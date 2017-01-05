@@ -20,9 +20,11 @@
         <alert [type]="a.type" dismissible="true" *ngFor="let a of alerts">{{a.msg}}</alert>
       </div>
       <div class="col-xs-6 btn-group" *ngIf="!showRenameForm" dropdown>
-        <button class="btn btn-default pull-right" dropdownToggle>
+        <button class="btn btn-default pull-right" *ngIf="!waiting" dropdownToggle>
           <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
         </button>
+        <button class="btn btn-default pull-right" *ngIf="waiting" disabled><span
+          class="glyphicon glyphicon-repeat rotate-forever"></span></button>
         <ul class="dropdown-menu-right" dropdownMenu>
           <li><a href (click)="$event.preventDefault(); showAddAction();">新建动作</a></li>
           <li><a href (click)="$event.preventDefault(); toggleRename();">重命名</a></li>
@@ -32,8 +34,11 @@
       </div>
     </div>
   </div>
+  <div class="" *ngIf="!showRenameForm && alerts.length > 0">
+    <alert [type]="a.type" dismissible="true" *ngFor="let a of alerts" (onClosed)="clearAlarts()">{{a.msg}}</alert>
+  </div>
   <ul class="list-group">
-    <li class="list-group-item action-editor" *ngFor="let a of data.children" [data]="a"></li>
+    <li class="list-group-item action-editor" *ngFor="let a of data.children" [data]="a" [parentBusy]="waiting"></li>
   </ul>
 </div>
 <div bsModal #addActionConfirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
