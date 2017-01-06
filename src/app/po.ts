@@ -10,3 +10,7 @@ export class Account {
   constructor(public name: string, public avatarUrl: string, public qqNick: string) {
   }
 }
+export class Record {
+  constructor(public id: number, public startAt: number) {
+  }
+}

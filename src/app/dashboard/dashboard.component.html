@@ -2,21 +2,35 @@
   <div class="col-md-3">
     <div class="panel panel-default">
       <div class="panel-heading">记录
-        <div class="pull-right glyphicon glyphicon-refresh" style="cursor: pointer" (click)="refresh()"><span class=""></span></div>
+        <div class="pull-right glyphicon glyphicon-refresh" style="cursor: pointer" (click)="refresh()"></div>
       </div>
 
       <div class="panel-body text-center">
-        <h2>
-          <small>正在</small>
-          {{current}}
-        </h2>
-        <h4>
-          <small>已进行</small>
-          10小时10分20秒
-        </h4>
-        <hr/>
-        <button class="btn btn-default btn-sm" [class.btn-primary]="current == a.name"
-                *ngFor="let a of actionList | async" (click)="changeCurrent(a.name)">{{a.name}}
+        <div *ngIf="!loading && current">
+          <alert type="danger" *ngIf="postError">{{postError}}</alert>
+          <h2>
+            <small>正在</small>
+            {{current}}
+          </h2>
+          <h4>
+            <small>已进行</small>
+            {{due}}
+          </h4>
+          <hr/>
+        </div>
+        <alert type="warning" *ngIf="!loading && !current && !error">还没有任何正在做的事情，请在下方选择一个</alert>
+        <alert type="danger" *ngIf="!loading && !current && !error && postError" dismissible="true">{{postError}}</alert>
+        <alert type="danger" *ngIf="!loading && error">
+          <h4>出错了</h4>
+          <p class="left">{{error}}</p>
+          <p><a class="alert-link" href (click)="$event.preventDefault(); refresh()">请点击这里重试</a></p>
+        </alert>
+        <div *ngIf="loading">
+          <span class="glyphicon glyphicon-refresh rotate-forever" style="font-size: 26px" aria-hidden="true"></span>
+        </div>
+        <button class="btn btn-default" [class.btn-primary]="current == a.name"
+                *ngFor="let a of actionList" (click)="changeCurrent(a.id)" [disabled]="posting">{{a.name}}
+          <span *ngIf="posting === a.id" class="glyphicon glyphicon-refresh rotate-forever" aria-hidden="true"></span>
         </button>
       </div>
     </div>

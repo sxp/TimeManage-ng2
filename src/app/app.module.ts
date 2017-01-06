@@ -20,6 +20,7 @@ import {ActionEditorComponent} from './action-editor/action-editor.component';
 import {DropdownModule} from "ng2-bootstrap/dropdown";
 import {ModalModule} from "ng2-bootstrap/modal";
 import {AlertModule} from "ng2-bootstrap/alert";
+import {RecordService} from "./record.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import {AlertModule} from "ng2-bootstrap/alert";
     HttpModule,
     AppRoutingModule
   ],
-  providers: [SessionService, AuthService,
+  providers: [SessionService, AuthService, RecordService,
     {provide: ActionService, useClass: ActionService}],
   bootstrap: [AppComponent]
 })

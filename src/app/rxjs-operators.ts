@@ -10,6 +10,7 @@
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/combineLatest';
 
 // Operators
 import 'rxjs/add/operator/catch';
