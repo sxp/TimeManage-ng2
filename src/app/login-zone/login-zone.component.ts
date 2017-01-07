@@ -29,7 +29,7 @@ export class LoginZoneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.qqAuthUrl = this.auth.qqAuthUrl();
+    this.qqAuthUrl = this.auth.qqAuthUrl;
     this.route.fragment.subscribe(v => {
       if (v === 'reg') {
         this.activeRegister();

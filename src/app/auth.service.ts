@@ -5,15 +5,15 @@ import {Account} from "./po";
 
 @Injectable()
 export class AuthService {
-  private qqUserInfoUrl = 'http://test.miguo.in:8000/auth/qqUserInfo';
-  private createNewQqUserUrl = 'http://test.miguo.in:8000/json/newQqUser';
-  private getQqAuthUrl = 'http://test.miguo.in:8000/json/qqAuthUrl';
-  private logoutUrl = 'http://test.miguo.in:8000/logout';
+  private qqUserInfoUrl = '/auth/qq/info';
+  private createNewQqUserUrl = '/auth/qq/create';
+  private getQqAuthUrl = '/auth/qq/url';
+  private logoutUrl = '/logout';
 
   constructor(private http: Http) {
   }
 
-  qqAuthUrl() {
+  get qqAuthUrl() {
     return this.http.get(this.getQqAuthUrl)
       .map(resp => <string>resp.json()['data'])
       .catch(err => {
