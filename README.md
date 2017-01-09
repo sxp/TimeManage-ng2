@@ -1,31 +1,13 @@
-# AngularTime
+# 时间管理
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.22-1.
+一款用来记录自己做过、正在做的事情和计划将要做的事情的应用。这是前端部分，使用 AngularJS 2（TypeScript版本）开发，还有一个后端部分的代码库。
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+此部分代码无法独立运行，如想本地运行测试，请看下面**运行一个本地可测试版本**，需要配合后端代码（使用 Laravel 框架实现）一起才能运行。
 
-## Code scaffolding
+## 运行一个本地可测试版本
+使用 `ng serve --host=0.0.0.0` 运行一个本地测试服务器，通过 `http://localhost:4200/`访问。
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+编辑并保存源码会自动重编译并刷新页面。
 
-## Build
+如果不使用我的后端代码，想要纯粹本地运行，需要修改`src/app/app.module.ts`将里面的`useClass: ActionService`替换为`useClass: LocalActionService`  **这只是一个临时方案，将来会有更好的切换本地测试数据和服务器实际交互的方式，有好的建议欢迎提供**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

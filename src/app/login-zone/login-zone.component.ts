@@ -21,7 +21,7 @@ import {ActivatedRoute} from "@angular/router";
   ]
 })
 export class LoginZoneComponent implements OnInit {
-  qqAuthUrl: Observable<string>;
+  qqAuthUrl: string;
   loginActive = true;
   regActive = false;
 
@@ -29,7 +29,9 @@ export class LoginZoneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.qqAuthUrl = this.auth.qqAuthUrl;
+    this.auth.qqAuthUrl.subscribe(url => {
+      this.qqAuthUrl = url;
+    });
     this.route.fragment.subscribe(v => {
       if (v === 'reg') {
         this.activeRegister();

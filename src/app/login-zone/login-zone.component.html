@@ -23,9 +23,8 @@
           </div>
           <button type="submit" class="btn btn-lg btn-primary btn-block">登录</button>
         </form>
-        <div class="pull-left" style="margin-top: 20px">
-          其他账号登录: <a href="{{qqAuthUrl | async}}"><img
-          src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_24X24.png"/></a>
+        <div class="pull-left" style="margin-top: 20px" *ngIf="qqAuthUrl">
+          其他账号登录: <a href="{{qqAuthUrl}}" *ngIf="qqAuthUrl"><img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/bt_blue_24X24.png"/></a>
         </div>
         <div class="pull-right" style="padding: 80px 5px 20px 0px">
           <span><a class="btn btn-link" href="#">忘记密码？</a>|</span>
