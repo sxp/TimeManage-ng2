@@ -18,21 +18,16 @@ export class AuthQqCreateComponent implements OnInit {
     this.auth.qqUserInfo().subscribe(act => {
       this.account = act;
       this.data.nick = act.qqNick
+    }, _ => {
+      this.route.navigate(['/']);
     })
   }
 
-  get trace() {
-    return JSON.stringify(this.data);
-  }
-
   onSubmit() {
-    console.log(this.trace);
-    this.auth.createNewQqUser(this.data.nick).subscribe(resp => {
-      if (resp.res === 'ok') {
-        this.route.navigate(['/']);
-      } else {
-        console.log(resp);
-      }
+    this.auth.createNewQqUser(this.data.nick).subscribe(_ => {
+      this.route.navigate(['/']);
+    }, err => {
+      console.log(err);
     });
   }
 

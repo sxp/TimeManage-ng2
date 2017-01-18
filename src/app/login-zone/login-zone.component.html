@@ -1,16 +1,15 @@
 <div style="margin-top: 20px">
   <ul class="nav nav-tabs">
     <li style="text-align: center" class="col-sm-6 col-xs-6" [class.active]="loginActive"><a routerLink="/" (click)="activeLogin()">登录</a></li>
-    <li style="text-align: center" class="col-sm-6 col-xs-6" [class.active]="regActive"><a routerLink="/" (click)="activeRegister()">注册</a></li>
+    <li style="text-align: center" class="col-sm-6 col-xs-6" [class.active]="regActive"><a routerLink="/" fragment="reg" (click)="activeRegister()">注册</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade" [class.active]="loginActive" *ngIf="loginActive" [@fadeInOut]="''">
       <div class="row" style="margin-left: 5px;margin-right: 5px">
-        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px"
-              action="/example/hdom/hdom_submitpage.html" onsubmit="return verifyForm()">
+        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px" #loginForm="ngForm" (ngSubmit)="formSubmit()">
           <div class="form-group input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-            <input id="loginAccount" type="email" class="form-control" placeholder="邮箱账号或手机号" required autofocus>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+            <input id="loginAccount" type="email" class="form-control" placeholder="电子邮箱地址" required autofocus>
           </div>
           <div class="form-group input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
@@ -34,17 +33,38 @@
     </div>
     <div class="tab-pane fade" [class.active]="regActive" *ngIf="regActive" [@fadeInOut]="''">
       <div class="row" style="margin-left: 5px;margin-right: 5px">
-        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px"
-              action="/example/hdom/hdom_submitpage.html" onsubmit="return verifyForm()">
-          <div class="form-group input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-            <input id="registerAccount" type="text" class="form-control" placeholder="请输入邮箱账号">
+        <form class="form-horizontal" role="form" style="padding:30px 10px 0px 10px" #regForm="ngForm" (ngSubmit)="formSubmit()">
+          <div class="form-group input-group" [class.has-error]="!nameInput.valid && !nameInput.pristine">
+            <span class="input-group-addon" title="昵称"><span class="glyphicon glyphicon-user"></span></span>
+            <input type="text" class="form-control" placeholder="请输入昵称" name="name" required minlength="3" maxlength="12" [(ngModel)]="name"
+                   #nameInput="ngModel">
           </div>
-          <div class="form-group input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-            <input id="registerPassword" type="password" class="form-control" placeholder="请输入密码">
+          <div class="form-group input-group" [class.has-error]="!emailInput.valid && !emailInput.pristine">
+            <span class="input-group-addon" title="电子邮箱地址"><span class="glyphicon glyphicon-envelope"></span></span>
+            <input type="email" class="form-control" placeholder="请输入电子邮箱地址" name="email" required [(ngModel)]="email"
+                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}" #emailInput="ngModel">
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block">立即注册</button>
+          <div class="form-group input-group" [class.has-error]="!passInput.valid && !passInput.pristine">
+            <span class="input-group-addon" title="密码"><span class="glyphicon glyphicon-lock"></span></span>
+            <input type="password" class="form-control" placeholder="请输入密码" name="pass" required #passInput="ngModel"
+                   minlength="6" [(ngModel)]="pass">
+          </div>
+          <div class="form-group input-group"
+               [class.has-error]="(!passInput.pristine || !pass2Input.pristine) && (!pass2Input.valid || pass2Input.value !== passInput.value)">
+            <span class="input-group-addon" title="确认密码"><span class="glyphicon glyphicon-lock"></span></span>
+            <input type="password" class="form-control" placeholder="请再次输入密码" name="pass2" required #pass2Input="ngModel"
+                   minlength="6" [(ngModel)]="confirmPass">
+          </div>
+          <alert type="danger" *ngIf="!isVaild || errors.length > 0">
+            <ul class="list-unstyled">
+              <li *ngIf="!nameInput.valid && !nameInput.pristine">昵称最少3个字符</li>
+              <li *ngIf="!emailInput.valid && !emailInput.pristine">请输入正确的电子邮件地址</li>
+              <li *ngIf="!passInput.valid && !passInput.pristine">密码至少6个字符</li>
+              <li *ngIf="(!passInput.pristine || !pass2Input.pristine) && (!pass2Input.valid || pass2Input.value !== passInput.value)">确认密码与密码不同</li>
+              <li *ngFor="let e of errors">{{e.msg}}</li>
+            </ul>
+          </alert>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!isVaild || !regForm.form.valid">立即注册</button>
         </form>
         <div class="pull-right" style="padding: 80px 5px 20px 0px">
           <span><a href="#">意见反馈</a></span>

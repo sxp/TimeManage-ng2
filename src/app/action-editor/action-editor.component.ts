@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {Action, ActionCategory} from "../po";
+import {Action, ActionCategory, Alert} from "../po";
 import {ActionService} from "../action.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class ActionEditorComponent implements OnInit, OnChanges {
   private showRenameForm = false;
   private _name: string;
   private changeOld = false;
-  private alerts = [];
+  private alerts: Alert[] = [];
   private waiting = false;
 
   constructor(private as: ActionService) {

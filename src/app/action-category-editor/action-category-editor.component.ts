@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {ActionCategory} from "../po";
+import {ActionCategory, Alert} from "../po";
 import {ActionService} from "../action.service";
 import {ModalDirective} from "ng2-bootstrap";
 
@@ -12,7 +12,7 @@ export class ActionCategoryEditorComponent implements OnInit {
   @Input() private data: ActionCategory;
   private showRenameForm = false;
   private _name: string;
-  private alerts = [];
+  private alerts: Alert[] = [];
   private waiting = false;
   private addActionName: string;
   @ViewChild('addActionConfirm') private addActionDialog: ModalDirective;

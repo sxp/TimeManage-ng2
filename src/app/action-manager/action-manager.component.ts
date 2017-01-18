@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActionService} from "../action.service";
 import {Observable} from "rxjs";
-import {ActionCategory} from "../po";
+import {ActionCategory, Alert} from "../po";
 import {ModalDirective} from "ng2-bootstrap";
 
 @Component({
@@ -11,7 +11,7 @@ import {ModalDirective} from "ng2-bootstrap";
 })
 export class ActionManagerComponent implements OnInit {
   private all: Observable<ActionCategory[]>;
-  private alerts = [];
+  private alerts: Alert[] = [];
   private waiting = false;
   private addCategoryName: string;
   @ViewChild('addCategoryConfirm') private addCategoryDialog: ModalDirective;

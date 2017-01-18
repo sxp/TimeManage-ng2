@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   private posting: boolean|number = false;
   private current = '';
   private due = '';
-  private dueSubscription: Subscription;
+  private dueSubscription: Subscription | null;
   private error = '';
   private postError = '';
 

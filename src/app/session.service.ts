@@ -7,7 +7,7 @@ import {Account} from "./po";
 @Injectable()
 export class SessionService {
   private accountInfoUrl = '/json/accountInfo';
-  private account: Account;
+  private account: Account | null;
 
   constructor(private http: Http) {
   }

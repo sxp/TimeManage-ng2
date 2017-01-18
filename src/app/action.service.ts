@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Action, ActionCategory} from "./po";
+import {Action, ActionCategory, commonRespMap} from "./po";
 
 @Injectable()
 export class ActionService {
@@ -36,23 +36,8 @@ export class ActionService {
     });
   }
 
-  private commonRespMap(resp: Observable<Response>, func?: (any) => any) {
-    return resp.switchMap(resp => {
-      let d = resp.json();
-      if (d.res === 0) {
-        if (func === undefined) {
-          return Observable.of(true);
-        } else {
-          return Observable.of(func(d));
-        }
-      } else {
-        return Observable.throw(d.msg);
-      }
-    });
-  }
-
   deleteCategory(id: number) {
-    return this.commonRespMap(this.http.post(this.deleteCategoryUrl, {id})).do(ignore => {
+    return commonRespMap(this.http.post(this.deleteCategoryUrl, {id})).do(ignore => {
       let idx = this.myCategory.findIndex(v => v.id === id);
       if (idx !== -1) {
         this.myCategory.splice(idx, 1);
@@ -61,7 +46,7 @@ export class ActionService {
   }
 
   saveCategory(id: number, name: string) {
-    return this.commonRespMap(this.http.post(this.saveCategoryUrl, {id, name})).do(ignore => {
+    return commonRespMap(this.http.post(this.saveCategoryUrl, {id, name})).do(ignore => {
       let idx = this.myCategory.findIndex(v => v.id === id);
       if (idx !== -1) {
         this.myCategory[idx].name = name;
@@ -70,7 +55,7 @@ export class ActionService {
   }
 
   saveAction(id: number, name: string, changeOld: boolean) {
-    return this.commonRespMap(this.http.post(this.saveActionUrl, {id, name, changeOld}), d => {
+    return commonRespMap(this.http.post(this.saveActionUrl, {id, name, changeOld}), d => {
       this.myCategory.forEach((v: ActionCategory) => {
         let idx = v.children.findIndex(i => i.id === id);
         if (idx !== -1) {
@@ -84,7 +69,7 @@ export class ActionService {
   }
 
   addAction(cid: number, name: string) {
-    return this.commonRespMap(this.http.post(this.addActionUrl, {cid, name}), d => {
+    return commonRespMap(this.http.post(this.addActionUrl, {cid, name}), d => {
       let a = <Action>d.data;
       let idx = this.myCategory.findIndex(v => v.id === cid);
       if (idx !== -1) {
@@ -95,7 +80,7 @@ export class ActionService {
   }
 
   addCategory(name: string) {
-    return this.commonRespMap(this.http.post(this.addCategoryUrl, {name}), d => {
+    return commonRespMap(this.http.post(this.addCategoryUrl, {name}), d => {
       let c = <ActionCategory>d.data;
       this.myCategory.push(c);
       return c;
@@ -103,7 +88,7 @@ export class ActionService {
   }
 
   deleteAction(id: number) {
-    return this.commonRespMap(this.http.post(this.deleteActionUrl, {id})).do(ignore => {
+    return commonRespMap(this.http.post(this.deleteActionUrl, {id})).do(ignore => {
       this.myCategory.forEach((v: ActionCategory) => {
         let idx = v.children.findIndex(i => i.id === id);
         if (idx !== -1) {

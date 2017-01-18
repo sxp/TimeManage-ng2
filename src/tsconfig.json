@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "",
     "declaration": false,
+    "strictNullChecks": true,
     "noEmitOnError": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
