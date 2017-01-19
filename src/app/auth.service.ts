@@ -10,6 +10,7 @@ export class AuthService {
   private getQqAuthUrl = '/auth/qq/url';
   private logoutUrl = '/logout';
   private registerUrl = '/register';
+  private loginUrl = '/login';
 
   constructor(private http: Http) {
   }
@@ -37,6 +38,10 @@ export class AuthService {
 
   register(name: string, email: string, password: string, password_confirmation: string) {
     return commonRespMap(this.http.post(this.registerUrl, {name, email, password, password_confirmation}));
+  }
+
+  login(email: string, password: string, remember: boolean) {
+    return commonRespMap(this.http.post(this.loginUrl, {email, password, remember}));
   }
 
 }

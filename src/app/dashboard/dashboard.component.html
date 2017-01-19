@@ -29,7 +29,7 @@
           <span class="glyphicon glyphicon-refresh rotate-forever" style="font-size: 26px" aria-hidden="true"></span>
         </div>
         <button class="btn btn-default" [class.btn-primary]="current == a.name"
-                *ngFor="let a of actionList" (click)="changeCurrent(a.id)" [disabled]="posting">{{a.name}}
+                *ngFor="let a of actionList" (click)="changeCurrent(a.id)" [disabled]="posting" style="margin: 2px">{{a.name}}
           <span *ngIf="posting === a.id" class="glyphicon glyphicon-refresh rotate-forever" aria-hidden="true"></span>
         </button>
       </div>

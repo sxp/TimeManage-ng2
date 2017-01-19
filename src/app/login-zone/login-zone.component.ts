@@ -9,7 +9,7 @@ import {controlPath} from "@angular/forms/src/directives/shared";
 import {isUndefined} from "util";
 import {sha1} from "@angular/compiler/src/i18n/digest";
 import {SessionService} from "../session.service";
-import {Alert} from "../po";
+import {Alert, trace} from "../po";
 
 @Component({
   selector: 'login-zone',
@@ -29,11 +29,8 @@ export class LoginZoneComponent implements OnInit {
   qqAuthUrl: string;
   loginActive = true;
   regActive = false;
-  private email: string;
-  private pass: string;
-  private confirmPass: string;
-  private name: string;
-  private errors: Alert[] = [];
+  private regData = {email: '', pass: '', confirmPass: '', name: '', errors: <Alert[]>[]};
+  private loginData = {email: '', pass: '', remember: false, errors: <Alert[]>[]};
 
   constructor(private auth: AuthService, private route: ActivatedRoute, private sess: SessionService) {
   }
@@ -61,19 +58,38 @@ export class LoginZoneComponent implements OnInit {
     this.regActive = true;
   }
 
-  get isVaild() {
-    return (this.pass === undefined || (this.pass.length >= 6 && this.confirmPass === this.pass)) &&
-      (this.email === undefined || this.email.match("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")) &&
-      (this.name === undefined || this.name.length >= 3);
+  get isValid() {
+    if (this.regActive) {
+      let d = this.regData;
+      return d.pass.length >= 6 && d.confirmPass === d.pass && d.email.match("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}") &&
+        d.name.length >= 3;
+    } else {
+      let d = this.loginData;
+      return (!d.pass || d.pass.length >= 6) && (!d.email || d.email.match("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"));
+    }
   }
 
   formSubmit() {
-    this.errors = [];
     if (this.regActive) {
-      this.auth.register(this.name, this.email, sha1(this.pass), sha1(this.confirmPass)).subscribe(resp => {
+      let d = this.regData;
+      d.errors = [];
+      this.auth.register(d.name, d.email, sha1(d.pass), sha1(d.confirmPass)).subscribe(resp => {
         this.sess.refreshAccountInfo();
       }, (err: string[]) => {
-        this.errors = err.map(s => {
+        this.regData.errors = err.map(s => {
+          return {
+            type: 'danger',
+            msg: s
+          };
+        });
+      });
+    } else {
+      let d = this.loginData;
+      d.errors = [];
+      this.auth.login(d.email, sha1(d.pass), d.remember).subscribe(resp => {
+        this.sess.refreshAccountInfo();
+      }, (err: string[]) => {
+        this.loginData.errors = err.map(s => {
           return {
             type: 'danger',
             msg: s
