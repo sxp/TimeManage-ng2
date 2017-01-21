@@ -14,9 +14,10 @@ export class Account {
   }
 }
 export class Record {
-  constructor(public id: number, public startAt: number) {
+  constructor(public actionId: number, public startAt: number, public id?: number) {
   }
 }
+export type FullRecord = Record & {begin: string, due?: string, name: string};
 export interface Alert {
   type: string;
   msg: any;
